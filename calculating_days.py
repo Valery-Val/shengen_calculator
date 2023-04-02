@@ -7,6 +7,15 @@ def config():
 
 if __name__ == "__main__":
 
+    def date_validation():
+        new_d = input(f"Enter your {counting_entries} entry date in format DD/MM/YY \n")
+        check_this = datetime.strptime(new_d, '%d/%m/%y').date()
+        if check_this <= date.today():
+            return check_this
+        else:
+            print("Please, enter the valid date")
+            date_validation()
+
     my_config = config()
     number_of_entries = int(input("How many times did you enter the Shengen area? \n"))
     counting_entries = 1
@@ -15,8 +24,7 @@ if __name__ == "__main__":
     my_limit_in_shengen = my_config["LIMIT"]
     my_limit_in_bulgaria = my_config["LIMIT"]
     for i in range(number_of_entries):
-        new_date = input(f"Enter your {counting_entries} entry date in format DD/MM/YY \n")
-        entry_date = datetime.strptime(new_date, '%d/%m/%y').date()
+        entry_date = date_validation()
         country = input("What country was it? \n")
         if country in my_config["SHENGEN"]:
             day_number = int(input("How many days did you spend there? \n"))
