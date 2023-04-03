@@ -11,10 +11,18 @@ if __name__ == "__main__":
         new_d = input(f"Enter your {counting_entries} entry date in format DD/MM/YY \n")
         check_this = datetime.strptime(new_d, '%d/%m/%y').date()
         if check_this <= date.today():
-            return check_this
+            return datetime.strptime(new_d, '%d/%m/%y').date()
         else:
             print("Please, enter the valid date")
             date_validation()
+
+    def period_validation():
+        day_number = int(input("How many days did you spend there? \n"))
+        if (my_limit_in_shengen - day_number) >= 0:
+            return int(day_number)
+        else:
+            print("It's already more than 90 days. Enter the appropriate number of days. \n")
+            period_validation()
 
     my_config = config()
     number_of_entries = int(input("How many times did you enter the Shengen area? \n"))
@@ -27,7 +35,7 @@ if __name__ == "__main__":
         entry_date = date_validation()
         country = input("What country was it? \n")
         if country in my_config["SHENGEN"]:
-            day_number = int(input("How many days did you spend there? \n"))
+            day_number = period_validation()
             my_dates_in_shengen[entry_date] = day_number
             if check_date <= entry_date:
                 my_limit_in_shengen -= day_number
@@ -40,7 +48,7 @@ if __name__ == "__main__":
             else:
                 print("Something went wrong")
         elif country == "Bulgaria":
-            day_number = int(input("How many days did you spend there? \n"))
+            day_number = period_validation()
             if check_date <= entry_date:
                 my_limit_in_bulgaria -= day_number
             elif check_date <= entry_date + timedelta(days=day_number):
