@@ -11,7 +11,11 @@ if __name__ == "__main__":
         new_d = input(f"Enter your {counting_entries} entry date in format DD/MM/YY \n")
         check_this = datetime.strptime(new_d, '%d/%m/%y').date()
         if check_this <= date.today():
-            return datetime.strptime(new_d, '%d/%m/%y').date()
+            if my_dates_in_shengen == {} or check_this >= (max(my_dates_in_shengen) + timedelta(days =(my_dates_in_shengen[(max(my_dates_in_shengen))]))):
+                return check_this
+            else:
+                print("Are you sure? It seems that you haven't finished the previous trip yet. \nLet's try again!")
+                date_validation()
         else:
             print("Please, enter the valid date")
             date_validation()
@@ -61,8 +65,7 @@ if __name__ == "__main__":
             pass
         counting_entries += 1
 
-    # print(number_of_entries)
-    # print(my_dates_in_shengen)
+
     print('------')
     print(f"""You have {my_limit_in_shengen} days left that you can spend in Shengen area. \n
     You can also spend {my_limit_in_bulgaria} days in Bulgaria.""")
